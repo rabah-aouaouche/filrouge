@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-363636: #363636;
+  --color-352c27: #352c27;
+  --color-553d32: #553d32;
+  --color-d97b3e: #d97b3e;
+  --color-ffb365: #ffb365;
+  --color-fdc980: #fdc980;
+  --color-f9e4d1: #f9e4d1;
+  --color-ededed: #ededed;
+}
+.trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+.ant-layout {
+  min-height: 100vh;
+}
+.ant-layout-sider {
+  flex: 0 0 250px !important;
+  max-width: 250px !important;
+  min-width: 250px !important;
+  width: 250px !important;
+}
+.ant-layout-sider-collapsed {
+  flex: 0 0 80px !important;
+  max-width: 80px !important;
+  min-width: 80px !important;
+  width: 80px !important;
+}
+
+.logo {
+  background-color: #f9e4d1;
+  margin: 0;
+  height: 64px;
+}
+main {
+  height: 85vh;
+  overflow-y: scroll;
+  background-color: transparent !important;
+}
+main::-webkit-scrollbar {
+  width: 0px;
+}
+.ant-menu-title-content {
+  font-size: 16px;
+}
+.ant-layout-header h5 {
+  line-height: 20px;
+  font-size: 16px;
+}
+.ant-layout-header p {
+  line-height: 20px;
+  font-size: 13px;
+}
+.ant-layout-header div .badge {
+  top: -4px;
+  right: -8px;
+}
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-dark
+  .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-dark
+  > .ant-menu
+  .ant-menu-item-selected {
+  background-color: #d97b3e !important;
+}

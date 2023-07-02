@@ -1,0 +1,47 @@
+import axios from "axios";
+import { config } from "../../utils/Axiosconfig";
+import { Base_url } from "../../utils/Base_url";
+
+const getProductCategories = async () => {
+  const response = await axios.get(`${Base_url}category/`);
+
+  return response.data;
+};
+
+const createCategory = async (category) => {
+  const response = await axios.post(`${Base_url}category/`, category, config);
+
+  return response.data;
+};
+
+const getProductCategory = async (id) => {
+  const response = await axios.get(`${Base_url}category/${id}`, config);
+
+  return response.data;
+};
+
+const deleteProductCategory = async (id) => {
+  const response = await axios.delete(`${Base_url}category/${id}`, config);
+
+  return response.data;
+};
+const updateProductCategory = async (category) => {
+  console.log(category);
+  const response = await axios.put(
+    `${Base_url}category/${category.id}`,
+    { title: category.pCatData.title },
+    config
+  );
+
+  return response.data;
+};
+
+const ProductCategoryService = {
+  getProductCategories,
+  createCategory,
+  getProductCategory,
+  deleteProductCategory,
+  updateProductCategory,
+};
+
+export default ProductCategoryService;

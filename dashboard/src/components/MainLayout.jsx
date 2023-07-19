@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { ImBlog } from "react-icons/im";
+import { VscSignOut } from "react-icons/vsc";
 import { IoIosNotifications } from "react-icons/io";
 import { FaClipboardList, FaBloggerB } from "react-icons/fa";
 import { SiBrandfolder } from "react-icons/si";
@@ -38,7 +39,9 @@ const MainLayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            if (key == "signout") {
+            if (key === "signout") {
+              localStorage.clear();
+              window.location.reload();
             } else {
               navigate(key);
             }
@@ -154,6 +157,11 @@ const MainLayout = () => {
               key: "enquiries",
               icon: <FaClipboardList className="w-6 h-6" />,
               label: "Enquiries",
+            },
+            {
+              key: "signout",
+              icon: <VscSignOut className="w-6 h-6" />,
+              label: "Sign Out",
             },
           ]}
         />

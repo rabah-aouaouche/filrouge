@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import {
   AiFillGithub,
@@ -13,11 +13,21 @@ import { BsArrowThroughHeart, BsPhoneVibrate } from "react-icons/bs";
 import logo from "../assets/images/logourban.png";
 import logodark from "../assets/images/logodark.png";
 import { useDispatch, useSelector } from "react-redux";
+import { Typeahead } from "react-bootstrap-typeahead";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import { getUserCart } from "../features/user/userSlice";
+import { getAProduct } from "../features/product/productSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const cartState = useSelector((state) => state?.auth?.cartProducts);
+  const authState = useSelector((state) => state?.auth);
   const [total, setTotal] = useState(null);
+
+  const productState = useSelector((state) => state?.product?.product);
+  const [productOpt, setProductOpt] = useState([]);
+  const [paginate, setPaginate] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let sum = 0;
@@ -28,6 +38,21 @@ const Header = () => {
       setTotal(sum);
     }
   }, [cartState]);
+
+  useEffect(() => {
+    dispatch(getUserCart());
+  }, []);
+
+  useEffect(() => {
+    let data = [];
+
+    for (let index = 0; index < productState.length; index++) {
+      const element = productState[index];
+      data.push({ id: index, prod: element?._id, name: element?.title });
+    }
+
+    setProductOpt(data);
+  }, [productState]);
 
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "mytheme"
@@ -46,6 +71,12 @@ const Header = () => {
     const localTheme = localStorage.getItem("theme");
     document.querySelector("html").setAttribute("data-theme", localTheme);
   }, [theme]);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <>
       <header className="">
@@ -113,6 +144,7 @@ const Header = () => {
                 className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52  "
               >
                 {/* search input for the humburger */}
+
                 <div className="form-control md:hidden lg:hidden ">
                   <div className="input-group input-group-xs">
                     <input
@@ -143,17 +175,21 @@ const Header = () => {
                   <Link to="/">Home</Link>
                 </li>
                 <li className="border-b">
-                  <Link to="/product">Our store</Link>
+                  <Link to="/product">Our Store</Link>
+                </li>
+                <li className="border-b">
+                  <Link to="/my-orders">My Orders</Link>
                 </li>
                 <li className="border-b">
                   <Link to="/blogs">Blogs</Link>
                 </li>
                 <li className="border-b">
-                  <Link to="/about">About us</Link>
+                  <Link to="/about">About Us</Link>
                 </li>
                 <li className="border-b">
                   <Link to="/contact">Contact</Link>
                 </li>
+
                 <li className="border-b">
                   <Link to="/compare-product">Compare product</Link>
                 </li>
@@ -196,32 +232,8 @@ const Header = () => {
           </div>
           <div className="navbar-end flex items-center">
             {/* search input */}
-            {/* <div className="form-control hidden md:flex lg:flex mr-5 ">
-              <div className="input-group input-group-sm">
-                <input
-                  type="text"
-                  placeholder="Search Product Here.."
-                  className="input input-bordered input-sm"
-                />
-                <button className="btn btn-square btn-sm">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div> */}
-            <div className="input-container hidden md:flex lg:flex right-5 ">
+
+            {/* <div className="input-container hidden md:flex lg:flex right-5 ">
               <form onSubmit={(e) => alert("fjljl")}>
                 <input
                   placeholder="Enter text"
@@ -233,7 +245,37 @@ const Header = () => {
                 </label>
                 <span className="input-highlight"></span>
               </form>
+            </div> */}
+
+            <div className="input-container hidden md:flex lg:flex right-5 bg-transparent ">
+              <form
+                onSubmit={(e) => alert("fjljl")}
+                className=" bg-transparent"
+              >
+                <Typeahead
+                  className="input-field bg-transparent"
+                  id="pagination-example"
+                  onPaginate={() => console.log("Results paginated")}
+                  options={productOpt}
+                  onChange={(selected) => {
+                    navigate(`/product/${selected[0]?.prod}`);
+                    dispatch(getAProduct(selected[0]?.prod));
+                  }}
+                  labelKey={"name"}
+                  minLength={2}
+                  paginate={paginate}
+                  placeholder="search..."
+                />
+                <label
+                  htmlFor="input-field"
+                  className="input-label bg-transparent"
+                >
+                  Enter text
+                </label>
+                <span className="input-highlight bg-transparent"></span>
+              </form>
             </div>
+
             {/* end search input */}
             {/* wishlist */}
             <Link to="/wishlist">
@@ -293,9 +335,16 @@ const Header = () => {
                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                       />
                     </svg>
-                    <span className="badge badge-sm indicator-item">
+                    {authState?.user === null ? (
+                      <span></span>
+                    ) : (
+                      <span className="badge badge-sm indicator-item bg-[#d97b3e]">
+                        {cartState?.length ? cartState?.length : 0}
+                      </span>
+                    )}
+                    {/* <span className="badge badge-sm indicator-item">
                       {cartState?.length ? cartState?.length : 0}
-                    </span>
+                    </span> */}
                   </div>
                 </label>
                 <div
@@ -324,54 +373,66 @@ const Header = () => {
 
             {/* -------- PROFILE AND LOGIN  ----------*/}
 
-            {/* when the user is connected */}
-            {/* <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <img src="https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png" />
-                </div>
-              </label>
-              <ul
-                tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <Link to="" className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="">Settings</Link>
-                </li>
-                <li>
-                  <Link to="">Logout</Link>
-                </li>
-              </ul>
-            </div> */}
-            {/* the sign-in icon */}
-            <div className="dropdown dropdown-end">
-              <label
-                tabIndex={0}
-                className="btn btn-ghost btn-circle flex items-center justify-center"
-              >
-                <div className="w-10 h-10 rounded-full flex items-center justify-center">
-                  <FiUser className="w-5 h-5" />
-                </div>
-              </label>
+            {authState?.user === null ? (
+              <div className="dropdown dropdown-end">
+                <label
+                  tabIndex={0}
+                  className="btn btn-ghost btn-circle flex items-center justify-center"
+                >
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center">
+                    <FiUser className="w-5 h-5" />
+                  </div>
+                </label>
 
-              <ul
-                tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <Link to="/signup">Sign up</Link>
-                </li>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              </ul>
-            </div>
+                <ul
+                  tabIndex={0}
+                  className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <Link to="/signup">Sign up</Link>
+                  </li>
+                  <li>
+                    <Link
+                      to={authState?.user === null ? "/login" : "/my-profile"}
+                    >
+                      Login
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="dropdown dropdown-end">
+                <label
+                  tabIndex={0}
+                  className="btn btn-ghost btn-circle flex items-center justify-center"
+                >
+                  <div className=" rounded-full flex items-center justify-center  ml-2 flex-col ">
+                    <h5 className="text-[7px]">Welcome</h5>
+                    <h2 className="text-[10px]">
+                      {authState?.user?.firstname}
+                    </h2>
+                  </div>
+                </label>
+
+                <ul
+                  tabIndex={0}
+                  className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <Link to="/my-profile">Profile</Link>
+                  </li>
+                  <li>
+                    <button
+                      className="  border-0 bg-transparent "
+                      type="button"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
 
             {/* END OF PROFILE AND LOGINE */}
           </div>

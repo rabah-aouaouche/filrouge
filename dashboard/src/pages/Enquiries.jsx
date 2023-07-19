@@ -84,7 +84,7 @@ const Enquiries = () => {
           <select
             name=""
             defaultValue={enqState[i].status ? enqState[i].status : "Submitted"}
-            className="form-control select select-bordered select-sm w-full max-w-xs"
+            className="form-control bg-transparent select select-bordered select-sm w-full max-w-xs"
             id=""
             onChange={(e) => setEnquiryStatus(e.target.value, enqState[i]._id)}
           >

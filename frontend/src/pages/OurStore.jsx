@@ -9,13 +9,53 @@ import { getAllProducts } from "../features/product/productSlice";
 const OurStore = () => {
   const [grid, setGrid] = useState(4);
   const productState = useSelector((state) => state?.product?.product);
+  // Filteer
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
+
+  // Filter States
+  const [tag, setTag] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [brand, setBrand] = useState(null);
+  const [minPrice, setMinPrice] = useState(null);
+  const [maxPrice, setMaxPrice] = useState(null);
+  const [sort, setSort] = useState(null);
+
+  useEffect(() => {
+    let newBrands = [];
+    let category = [];
+    let newtags = [];
+    let newColors = [];
+
+    for (let index = 0; index < productState.length; index++) {
+      const element = productState[index];
+      newBrands.push(element.brand);
+      category.push(element.category);
+      newtags.push(element.tags);
+      newColors.push(element.color);
+    }
+
+    setBrands(newBrands);
+    setCategories(category);
+    setTags(newtags);
+  }, [productState]);
+
   const dispatch = useDispatch();
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [sort, tag, brand, category, minPrice, maxPrice]);
   const getProducts = () => {
-    dispatch(getAllProducts());
+    dispatch(
+      getAllProducts({ sort, tag, brand, category, minPrice, maxPrice })
+    );
   };
+
+  // console.log(
+  //   [...new Set(brands)],
+  //   [...new Set(categories)],
+  //   [...new Set(tags)]
+  // );
 
   return (
     <>
@@ -27,19 +67,23 @@ const OurStore = () => {
             <div className="w-full md:w-1/4">
               <div className="filter-card mb-3 m-2">
                 <h3 className="filter-title"> Shop By Categories</h3>
-                <div>
+                <div className="">
                   <ul className=" ps-0 ">
-                    <li>T-shirt</li>
-                    <li>Jeans</li>
-                    <li>baskets</li>
-                    <li>sunglasses</li>
+                    {categories &&
+                      [...new Set(categories)].map((item, index) => {
+                        return (
+                          <li key={index} onClick={() => setCategory(item)}>
+                            {item}
+                          </li>
+                        );
+                      })}
                   </ul>
                 </div>
               </div>
               <div className="filter-card mb-3 m-2">
                 <h3 className="filter-title"> Filter By</h3>
                 <div>
-                  <h5 className="sub-title"> Availablity</h5>
+                  {/* <h5 className="sub-title"> Availablity</h5>
                   <div>
                     <div>
                       <div className="form-check flex items-center gap-1">
@@ -65,7 +109,7 @@ const OurStore = () => {
                         </label>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <h5 className="sub-title"> Price</h5>
                   <div className="flex items-center gap-2">
                     <div className="form-control w-full max-w-xs h-16">
@@ -73,8 +117,9 @@ const OurStore = () => {
                         <span className="label-text">From:</span>
                       </label>
                       <input
-                        type="text"
+                        type="number"
                         placeholder="..Da"
+                        onChange={(e) => setMinPrice(e.target.value)}
                         className="input input-bordered w-full max-w-xs"
                       />
                     </div>
@@ -83,13 +128,14 @@ const OurStore = () => {
                         <span className="label-text">To:</span>
                       </label>
                       <input
-                        type="text"
+                        type="number"
                         placeholder="..Da"
+                        onChange={(e) => setMaxPrice(e.target.value)}
                         className="input input-bordered w-full max-w-xs"
                       />
                     </div>
                   </div>
-                  <h5 className="sub-title"> Colors</h5>
+                  {/* <h5 className="sub-title"> Colors</h5>
                   <div className="flex flex-wrap ">
                     <ul className="colors ps-0">
                       <li></li>
@@ -108,7 +154,7 @@ const OurStore = () => {
                       <li></li>
                       <li></li>
                     </ul>
-                  </div>
+                  </div> */}
                   <h5 className="sub-title"> Size</h5>
                   <div>
                     <div className="form-check flex items-center gap-1">
@@ -184,63 +230,37 @@ const OurStore = () => {
                 <h3 className="filter-title"> Product Tags</h3>
                 <div>
                   <div className="product-tags flex flex-wrap items-center gap-2">
-                    <span className="badge bg-slate-400 rounded-lg py-3 px-3">
-                      T-shirt
-                    </span>
-                    <span className="badge bg-slate-400 rounded-lg py-3 px-3">
-                      Chemise
-                    </span>
-                    <span className="badge bg-slate-400 rounded-lg py-3 px-3">
-                      Jeans
-                    </span>
-                    <span className="badge bg-slate-400 rounded-lg py-3 px-3">
-                      underwear
-                    </span>
+                    {tags &&
+                      [...new Set(tags)].map((item, index) => {
+                        return (
+                          <span
+                            onClick={() => setTag(item)}
+                            key={index}
+                            className="badge capitalize bg-violet-400 rounded-lg py-3 px-3"
+                          >
+                            {item}
+                          </span>
+                        );
+                      })}
                   </div>
                 </div>
               </div>
               <div className="filter-card mb-3 m-2">
-                <h3 className="filter-title"> Random Product</h3>
-                <div className="">
-                  <div className="random-products flex gap-2 justify-center border-grey border-b-2 pb-2  ">
-                    <div className=" w-32">
-                      <img src="images/caroussel1.png" className="" alt="" />
-                    </div>
-                    <div className=" w-32 m-0 flex flex-col justify-between ">
-                      <h5 className=" text-md font-medium mb-0">
-                        Zara summer polo
-                      </h5>
-                      <div>
-                        <ReactStars
-                          count={5}
-                          size={20}
-                          value={3}
-                          edit={false}
-                          activeColor="#ffd700"
-                        />
-                        <b className=" text-xs">2000da</b>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="random-products flex gap-2 justify-center  pt-2  ">
-                    <div className=" w-32">
-                      <img src="images/caroussel1.png" className="" alt="" />
-                    </div>
-                    <div className=" w-32 m-0 flex flex-col justify-between ">
-                      <h5 className=" text-md font-medium mb-0">
-                        Zara summer polo
-                      </h5>
-                      <div>
-                        <ReactStars
-                          count={5}
-                          size={20}
-                          value={3}
-                          edit={false}
-                          activeColor="#ffd700"
-                        />
-                        <b className=" text-xs">2000da</b>
-                      </div>
-                    </div>
+                <h3 className="filter-title"> Product Brands</h3>
+                <div>
+                  <div className="product-tags flex flex-wrap items-center gap-2">
+                    {brands &&
+                      [...new Set(brands)].map((item, index) => {
+                        return (
+                          <span
+                            onClick={() => setBrand(item)}
+                            key={index}
+                            className="badge capitalize bg-violet-400 rounded-lg py-3 px-3"
+                          >
+                            {item}
+                          </span>
+                        );
+                      })}
                   </div>
                 </div>
               </div>
@@ -250,27 +270,18 @@ const OurStore = () => {
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
                     <p className=" mb-0">Sort By:</p>
-                    <select name="" className="form-control form-select" id="">
-                      <option value="manual">Featured</option>
-                      <option value="best-selling">Best selling</option>
-                      <option value="title-ascending">
-                        Alphabetically, A-Z
-                      </option>
-                      <option value="title-descending">
-                        Alphabetically, Z-A
-                      </option>
-                      <option value="price-ascending">
-                        Price, low to high
-                      </option>
-                      <option value="price-descending">
-                        Price, high to low
-                      </option>
-                      <option value="created-ascending">
-                        Date, old to new
-                      </option>
-                      <option value="created-descending">
-                        Date, new to old
-                      </option>
+                    <select
+                      name=""
+                      className="form-control form-select"
+                      id=""
+                      onChange={(e) => setSort(e.target.value)}
+                    >
+                      <option value="title">Alphabetically, A-Z</option>
+                      <option value="-title">Alphabetically, Z-A</option>
+                      <option value="price">Price, low to high</option>
+                      <option value="-price">Price, high to low</option>
+                      <option value="createdAt">Date, old to new</option>
+                      <option value="-createdAt">Date, new to old</option>
                     </select>
                   </div>
                   <div className=" flex items-center gap-2">
@@ -278,31 +289,31 @@ const OurStore = () => {
                     <div className="flex gap-2 items-center gridd">
                       <img
                         onClick={() => setGrid(3)}
-                        src="/images/gr4.svg"
-                        className="block"
-                        alt="grid"
-                      />
-
-                      <img
-                        onClick={() => setGrid(4)}
                         src="/images/gr3.svg"
                         className="block"
                         alt="grid"
                       />
 
                       <img
-                        onClick={() => setGrid(6)}
+                        onClick={() => setGrid(4)}
                         src="/images/gr2.svg"
                         className="block"
                         alt="grid"
                       />
 
                       <img
-                        onClick={() => setGrid(12)}
+                        onClick={() => setGrid(6)}
                         src="/images/gr.svg"
                         className="block"
                         alt="grid"
                       />
+
+                      {/* <img
+                        onClick={() => setGrid(12)}
+                        src="/images/gr.svg"
+                        className="block"
+                        alt="grid"
+                      /> */}
                     </div>
                   </div>
                 </div>

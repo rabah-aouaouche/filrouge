@@ -1,13 +1,14 @@
 import React from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/user/userSlice";
+import { useEffect } from "react";
 
-let schema = yup.object().shape({
+let loginSchema = yup.object().shape({
   email: yup
     .string()
     .email("Email should be valid")
@@ -17,17 +18,28 @@ let schema = yup.object().shape({
 });
 
 const Login = () => {
+  const authState = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    validationSchema: schema,
+    validationSchema: loginSchema,
     onSubmit: (values) => {
       dispatch(loginUser(values));
+
+      // navigate("/");
     },
   });
+
+  useEffect(() => {
+    if (authState.user !== null && authState.isError === false) {
+      navigate("/");
+    }
+  }, [authState]);
+
   return (
     <>
       <Meta title={"Login"} />

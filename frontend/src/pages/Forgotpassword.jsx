@@ -1,9 +1,33 @@
 import React from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPasswordToken } from "../features/user/userSlice";
+
+let emailSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Email should be valid")
+    .required("Email is Required "),
+});
 
 const Forgotpassword = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: emailSchema,
+    onSubmit: (values) => {
+      dispatch(forgotPasswordToken(values));
+    },
+  });
+
   return (
     <>
       <Meta title={"Forgot Password"} />
@@ -30,7 +54,10 @@ const Forgotpassword = () => {
                         </h4>
                       </div>
 
-                      <form className=" flex flex-col justify-center items-center">
+                      <form
+                        onSubmit={formik.handleSubmit}
+                        className=" flex flex-col justify-center items-center"
+                      >
                         <p className="mb-4">
                           We will sent you an email to reset your password
                         </p>
@@ -46,7 +73,13 @@ const Forgotpassword = () => {
                             name="email"
                             placeholder="Email address"
                             className="input input-bordered w-full max-w-xs text-black"
+                            value={formik.values.email}
+                            onChange={formik.handleChange("email")}
+                            onBlur={formik.handleBlur("email")}
                           />
+                          <div className="error mt-2">
+                            {formik.touched.email && formik.errors.email}
+                          </div>
                         </div>
 
                         {/* Submit button */}

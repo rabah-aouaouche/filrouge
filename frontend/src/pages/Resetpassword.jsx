@@ -1,9 +1,36 @@
 import React from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { resetPassword } from "../features/user/userSlice";
+
+let passwordSchema = yup.object().shape({
+  password: yup.string().required("Password is Required"),
+});
 
 const Resetpassword = () => {
+  const location = useLocation();
+
+  const getToken = location.pathname.split("/")[2];
+  console.log(getToken);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+    },
+    validationSchema: passwordSchema,
+    onSubmit: (values) => {
+      dispatch(resetPassword({ token: getToken, password: values.password }));
+
+      navigate("/login");
+    },
+  });
+
   return (
     <>
       <Meta title={"Reset Password"} />
@@ -29,7 +56,10 @@ const Resetpassword = () => {
                         </h4>
                       </div>
 
-                      <form className=" flex flex-col justify-center items-center">
+                      <form
+                        onSubmit={formik.handleSubmit}
+                        className=" flex flex-col justify-center items-center"
+                      >
                         <p className="mb-4">Enter your new password</p>
                         {/* Password input */}
                         <div className="form-control w-full max-w-xs">
@@ -43,10 +73,16 @@ const Resetpassword = () => {
                             name="password"
                             placeholder="Password"
                             className="input input-bordered w-full max-w-xs text-black"
+                            value={formik.values.password}
+                            onChange={formik.handleChange("password")}
+                            onBlur={formik.handleBlur("password")}
                           />
+                          <div className="error mt-2">
+                            {formik.touched.password && formik.errors.password}
+                          </div>
                         </div>
                         {/* Password input */}
-                        <div className="form-control w-full max-w-xs">
+                        {/* <div className="form-control w-full max-w-xs">
                           <label className="label">
                             <span className="label-text text-red-400">
                               Confirm Password
@@ -58,7 +94,7 @@ const Resetpassword = () => {
                             placeholder="Confirm Password"
                             className="input input-bordered w-full max-w-xs text-black"
                           />
-                        </div>
+                        </div> */}
 
                         {/* Submit button */}
                         <div className="mb-12 mt-5 pb-1 pt-1 text-center flex flex-col justify-start ">

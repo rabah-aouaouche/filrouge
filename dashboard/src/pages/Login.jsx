@@ -24,7 +24,7 @@ const Login = () => {
     validationSchema: schema,
     onSubmit: (values) => {
       dispatch(login(values));
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -130,9 +130,6 @@ const Login = () => {
                             Login
                           </button>
                           {/* Forgot password link */}
-                          <Link to="/forgot-password" className=" flex">
-                            Forgot password?
-                          </Link>
                         </div>
                       </form>
                     </div>

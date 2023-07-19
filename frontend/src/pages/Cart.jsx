@@ -54,83 +54,6 @@ const Cart = () => {
     <>
       <Meta title={"Cart"} />
       <BreadCrumb title="Cart" />
-      {/* <div className="cart-wrapper home-wrapper-2 py-5">
-        <div className="grid grid-cols-4">
-          <div className="col-span-4">
-            <div className="cart-header py-3 flex justify-between items-center">
-              <h4 className="cart-col-1">Product</h4>
-              <h4 className="cart-col-2">Price</h4>
-              <h4 className="cart-col-3">Quantity</h4>
-              <h4 className="cart-col-4">Total</h4>
-            </div>
-            {userCartState &&
-              userCartState?.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="cart-data py-3 mb-2 flex justify-between items-center"
-                  >
-                    <div className="cart-col-1 gap-15 flex items-center">
-                      <div className="w-1/4">
-                        <img
-                          src="/images/watch.jpg"
-                          className="img-fluid"
-                          alt="product image"
-                        />
-                      </div>
-                      <div className="w-3/4">
-                        <p>{item?.productId?.title}</p>
-                        <p>
-                          Color:
-                          <ul className="colors ps-0">
-                            <li
-                              style={{ backgroundColor: item?.color?.title }}
-                            ></li>
-                          </ul>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="cart-col-2">
-                      <h5 className="price">$ 100</h5>
-                    </div>
-                    <div className="cart-col-3 flex items-center gap-15">
-                      <div>
-                        <input
-                          className="form-control"
-                          type="number"
-                          name=""
-                          min="1"
-                          max="10"
-                          id=""
-                        />
-                      </div>
-                      <div>
-                        <AiFillDelete className="text-danger" />
-                      </div>
-                    </div>
-                    <div className="cart-col-4">
-                      <h5 className="price">$ 100</h5>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
-          <div className="col-span-4 py-2 mt-4">
-            <div className="flex justify-between items-baseline">
-              <a href="/product" className="button">
-                Continue To Shopping
-              </a>
-              <div className="flex flex-col items-end">
-                <h4>SubTotal: $ 1000</h4>
-                <p>Taxes and shipping calculated at checkout</p>
-                <a href="/checkout" className="button">
-                  Checkout
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
       {/* NEW CART */}
       <section>
@@ -151,7 +74,7 @@ const Cart = () => {
                       <li className="flex items-center gap-4 col-span-4">
                         <div className="flex gap-4">
                           <img
-                            src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
+                            src={item?.productId?.images[0]?.url}
                             alt=""
                             className="h-16 w-16 rounded object-cover"
                           />
@@ -174,6 +97,7 @@ const Cart = () => {
                                     <li
                                       style={{
                                         backgroundColor: item?.color?.title,
+                                        border: "1px solid",
                                       }}
                                     ></li>
                                   </ul>
@@ -255,23 +179,25 @@ const Cart = () => {
                       </div>
                     )}
 
-                    <div className="flex justify-between">
+                    {/* <div className="flex justify-between">
                       <dt>VAT</dt>
                       <dd>£25</dd>
-                    </div>
+                    </div> */}
 
-                    <div className="flex justify-between">
+                    {/* <div className="flex justify-between">
                       <dt>Discount</dt>
                       <dd>-£20</dd>
-                    </div>
+                    </div> */}
 
-                    <div className="flex justify-between !text-base font-medium">
-                      <dt>Total</dt>
-                      <dd>£200</dd>
-                    </div>
+                    {(totalAmount !== null || totalAmount !== 0) && (
+                      <div className="flex justify-between !text-base font-medium">
+                        <dt>Total</dt>
+                        <dd>{totalAmount} Da</dd>
+                      </div>
+                    )}
                   </dl>
 
-                  <div className="flex justify-end">
+                  {/* <div className="flex justify-end">
                     <span className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -292,7 +218,7 @@ const Cart = () => {
                         2 Discounts Applied
                       </p>
                     </span>
-                  </div>
+                  </div> */}
 
                   <div className="flex justify-end">
                     <a

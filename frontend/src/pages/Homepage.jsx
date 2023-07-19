@@ -4,13 +4,17 @@ import caroussel1 from "../assets/images/caroussel1.png";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
-import { services } from "../utils/Data";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBlogs } from "../features/blogs/blogSlice";
 import { getAllProducts } from "../features/product/productSlice";
 import ReactStars from "react-rating-stars-component";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { FaShippingFast } from "react-icons/fa";
+import { BiSupport } from "react-icons/bi";
+import { AiFillGift } from "react-icons/ai";
+import { MdPayment } from "react-icons/md";
+import { TbArrowBigDownLinesFilled } from "react-icons/tb";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { addToWishlist } from "../features/product/productSlice";
 
@@ -63,10 +67,12 @@ const Homepage = () => {
             </p>
           </div>
           <p className=" md:text-2xl text-xl font-bold  text-white">
-            We have recently added new articles.{" "}
+            We have recently added new articles.
             <span className=" text-gray-500">Click to discover.</span>
           </p>
-          <button className=" specialbutt w-44 mx-auto top-5 ">DISCOVER</button>
+          <Link to="/product" className=" specialbutt w-44 mx-auto top-5 ">
+            DISCOVER
+          </Link>
         </div>
         <div className="w-full h-screen mx-auto text-center lg:flex flex-col justify-center items-center hidden   ">
           {/* <div className="carousel carousel-center w-[300px] h-[450px] max-w-md p-4 space-x-4 bg-neutral rounded-box"></div> */}
@@ -118,26 +124,43 @@ const Homepage = () => {
           </div>
         </div>
       </div>
-      <section className="home-wrapper-2 py-5">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap">
-            <div className="w-full md:block hidden">
-              <div className="services flex flex-wrap items-center justify-between">
-                {services?.map((i, j) => {
-                  return (
-                    <div
-                      className="flex items-center gap-3 w-full md:w-auto md:flex-none"
-                      key={j}
-                    >
-                      <img src={i.image} alt="services" />
-                      <div>
-                        <h6>{i.title}</h6>
-                        <p className="mb-0">{i.tagline}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+
+      <section className="p-6 my-6  dark:text-gray-100">
+        <div className="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-2 xl:grid-cols-4">
+          <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 border-white border dark:bg-gray-900 dark:text-gray-100">
+            <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-[#d97b3e]">
+              <FaShippingFast className=" w-10 h-10" />
+            </div>
+            <div className="flex flex-col justify-center align-middle">
+              <p className="text-3xl font-semibold leadi">500da</p>
+              <p className="capitalize">All Shipping</p>
+            </div>
+          </div>
+          <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 border-white border dark:bg-gray-900 dark:text-gray-100">
+            <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-violet-400">
+              <BiSupport className=" w-10 h-10" />
+            </div>
+            <div className="flex flex-col justify-center align-middle">
+              <p className="text-3xl font-semibold leadi">24/7</p>
+              <p className="capitalize">Support</p>
+            </div>
+          </div>
+          <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 border-white border dark:bg-gray-900 dark:text-gray-100">
+            <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-[#d97b3e]">
+              <AiFillGift className=" w-10 h-10" />
+            </div>
+            <div className="flex flex-col justify-center align-middle">
+              <p className="text-3xl font-semibold leadi">Daily Surprises</p>
+              <p className="capitalize">Save up to 25% off</p>
+            </div>
+          </div>
+          <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 border-white border dark:bg-gray-900 dark:text-gray-100">
+            <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-[#d97b3e]">
+              <MdPayment className=" w-10 h-10" />
+            </div>
+            <div className="flex flex-col justify-center align-middle">
+              <p className="text-3xl font-semibold leadi">Secure Payments</p>
+              <p className="capitalize">100% Protected Payments</p>
             </div>
           </div>
         </div>
@@ -146,14 +169,11 @@ const Homepage = () => {
       <section className="newcollection">
         <div className="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
           <header className="text-center">
-            <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">
-              New Collection
-            </h2>
+            <h2 className="text-xl font-bold  sm:text-5xl">New Collection</h2>
 
-            <p className="max-w-md mx-auto mt-4 text-gray-500">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
-              praesentium cumque iure dicta incidunt est ipsam, officia dolor
-              fugit natus?
+            <p className="max-w-md mx-auto mt-4 ">
+              Play it cool in neutral colors, graphic patterns & relaxed
+              silhouettes, up to 3XL.
             </p>
           </header>
 
@@ -161,19 +181,22 @@ const Homepage = () => {
             <li>
               <a href="#" className="relative block group">
                 <img
-                  src="https://images.unsplash.com/photo-1618898909019-010e4e234c55?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                  src="images/h&m-green.jpg"
                   alt=""
-                  className="object-cover w-full transition duration-500 aspect-square group-hover:opacity-90"
+                  className=" w-full transition duration-500 aspect-square group-hover:opacity-90"
                 />
 
                 <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
-                  <h3 className="text-xl font-medium text-white">
+                  <h3 className="text-xl font-medium  text-gray-500">
                     Casual Trainers
                   </h3>
 
-                  <span className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+                  <Link
+                    to="/product/64b1936f988e077858ca17d8"
+                    className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white"
+                  >
                     Shop Now
-                  </span>
+                  </Link>
                 </div>
               </a>
             </li>
@@ -181,14 +204,14 @@ const Homepage = () => {
             <li>
               <a href="#" className="relative block group">
                 <img
-                  src="https://images.unsplash.com/photo-1624623278313-a930126a11c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                  src="images/sunglasses-green.jpg"
                   alt=""
                   className="object-cover w-full transition duration-500 aspect-square group-hover:opacity-90"
                 />
 
                 <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
-                  <h3 className="text-xl font-medium text-white">
-                    Winter Jumpers
+                  <h3 className="text-xl font-medium text-gray-500">
+                    RECTANGULAR SUNGLASSES
                   </h3>
 
                   <span className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
@@ -201,19 +224,19 @@ const Homepage = () => {
             <li className="lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1">
               <a href="#" className="relative block group">
                 <img
-                  src="https://images.unsplash.com/photo-1593795899768-947c4929449d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80"
+                  src="images/shoescollection.jpg"
                   alt=""
                   className="object-cover w-full transition duration-500 aspect-square group-hover:opacity-90"
                 />
 
                 <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
-                  <h3 className="text-xl font-medium text-white">
-                    Skinny Jeans Blue
+                  <h3 className="text-xl font-medium text-gray-500">
+                    MULTIPIECE SNEAKERS
                   </h3>
 
-                  <span className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+                  <Link className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
                     Shop Now
-                  </span>
+                  </Link>
                 </div>
               </a>
             </li>
@@ -221,76 +244,33 @@ const Homepage = () => {
         </div>
       </section>
 
-      <section className="home-wrapper-3 py-5">
-        <div className="  max-w-7xl mx-auto">
-          <div className=" flex flex-wrap">
-            <div className="  w-full">
-              <div className="categories flex flex-wrap justify-between items-center">
-                <div className=" flex gap items-center">
-                  <div>
-                    <h6>cameras</h6>
-                    <p> 10 items</p>
-                  </div>
-                  <img src="images/camera.jpg" alt="camera" />
-                </div>
-                <div className=" flex gap items-center">
-                  <div>
-                    <h6>cameras</h6>
-                    <p> 10 items</p>
-                  </div>
-                  <img src="images/camera.jpg" alt="camera" />
-                </div>
-                <div className=" flex gap items-center">
-                  <div>
-                    <h6>smart tv</h6>
-                    <p> 10 items</p>
-                  </div>
-                  <img src="/images/tv.jpg" alt="camera" />
-                </div>
-                <div className=" flex gap items-center">
-                  <div>
-                    <h6>smart watches</h6>
-                    <p> 10 items</p>
-                  </div>
-                  <img src="images/headphone.jpg" alt="camera" />
-                </div>
-                <div className=" flex gap items-center">
-                  <div>
-                    <h6>cameras</h6>
-                    <p> 10 items</p>
-                  </div>
-                  <img src="images/camera.jpg" alt="camera" />
-                </div>
-                <div className=" flex gap items-center">
-                  <div>
-                    <h6>cameras</h6>
-                    <p> 10 items</p>
-                  </div>
-                  <img src="images/camera.jpg" alt="camera" />
-                </div>
-                <div className=" flex gap items-center">
-                  <div>
-                    <h6>smart tv</h6>
-                    <p> 10 items</p>
-                  </div>
-                  <img src="images/tv.jpg" alt="camera" />
-                </div>
-                <div className=" flex gap items-center">
-                  <div>
-                    <h6>smart watches</h6>
-                    <p> 10 items</p>
-                  </div>
-                  <img src="images/headphone.jpg" alt="camera" />
-                </div>
-              </div>
+      <div className="p-6 py-12 dark:bg-violet-400 dark:text-gray-900">
+        <div className="container mx-auto">
+          <div className="flex flex-col lg:flex-row items-center justify-between">
+            <h2 className="text-center text-6xl tracki font-bold">
+              Up to
+              <br className="sm:hidden" />
+              20% Off
+            </h2>
+            <div className="space-x-2 text-center py-2 lg:py-0">
+              <span> Use code:</span>
+              <span className="font-bold text-lg">URBAN20</span>
             </div>
+            <a
+              href="#"
+              rel="noreferrer noopener"
+              className="px-5 mt-4 lg:mt-0 py-3 rounded-md border block dark:bg-gray-50 dark:text-gray-900 dark:border-gray-400"
+            >
+              Shop Now
+            </a>
           </div>
         </div>
-      </section>
+      </div>
+
       <section className="famous-wrapper justify-center items-center flex py-5 home-wrapper-2">
         <div className="max-w-7xl flex flex-wrap gap-2 justify-center">
           <div className="w-full mx-auto text-center flex flex-col justify-center">
-            <h3 className="text-2xl font-bold">Latest Collection</h3>
+            <h3 className="text-4xl font-bold py-10">LATEST ADDED </h3>
           </div>
           <div className="w-1/2 sm:w-1/2 md:w-1/4 lg:w-[23%]">
             <div className="famous-card relative h-full w-full">
@@ -328,14 +308,27 @@ const Homepage = () => {
                       )}
 
                       <div className="famous-content absolute flex flex-col justify-between">
-                        <h5 className="text-black">{item?.brand}</h5>{" "}
-                        <h6 className="text-black">{item?.title}</h6>
-                        <p
+                        <div>
+                          <h5 className="text-black">{item?.brand}</h5>
+                          <h6 className="text-black">{item?.title}</h6>
+                        </div>
+                        <div>
+                          <button className="border-0 bg-transparent">
+                            <img
+                              onClick={() => navigate("/product/" + item?._id)}
+                              src="/images/view.svg"
+                              alt="view"
+                              className=" w-16 "
+                            />
+                          </button>
+                        </div>
+
+                        {/* <p
                           className="text-black mt-20 "
                           dangerouslySetInnerHTML={{
                             __html: item?.description,
                           }}
-                        ></p>
+                        ></p> */}
                       </div>
                     </div>
                   </div>
@@ -383,114 +376,17 @@ const Homepage = () => {
           </div>
         </div>
       </section>
-      <section className="Featured-wrapper py-5 home-wrapper-2">
-        <div className="  max-w-7xl mx-auto">
-          <div className=" flex flex-wrap gap-6 justify-center">
-            <div className=" w-full  mx-auto text-center flex flex-col justify-center  ">
-              <h3 className=" text-2xl font-bold">Featured Collection</h3>
-            </div>
-
-            {productState &&
-              productState?.map((item, index) => {
-                if (item.tags === "featured") {
-                  return (
-                    <div key={index} className={"w-1/7 "}>
-                      <div>
-                        <div className="w-48 carde-product">
-                          <div className="group block overflow-hidden">
-                            <div className=" relative h-40  sm:h-64  sm:w-48  bg-gray-100">
-                              {item?.images && item.images[0] && (
-                                <img
-                                  src={item.images[0].url}
-                                  alt=""
-                                  className="absolute inset-0 w-full h-full object-contain opacity-100 group-hover:opacity-0"
-                                />
-                              )}
-                              {item?.images && item.images[0] && (
-                                <img
-                                  src={item.images[0].url}
-                                  alt=""
-                                  className="absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100"
-                                />
-                              )}
-                              <div className="action-bar absolute">
-                                <div className="flex flex-col gap-4">
-                                  <button
-                                    className="border-0 bg-transparent"
-                                    onClick={() => {
-                                      addToWish(item?._id);
-                                    }}
-                                  >
-                                    <img
-                                      src="/images/wish.svg"
-                                      alt="wishlist"
-                                    />
-                                  </button>
-                                  <button className="border-0 bg-transparent">
-                                    <img
-                                      src="/images/prodcompare.svg"
-                                      alt="compare"
-                                    />
-                                  </button>
-                                  <button className="border-0 bg-transparent">
-                                    <img
-                                      onClick={() =>
-                                        navigate("/product/" + item?._id)
-                                      }
-                                      src="/images/view.svg"
-                                      alt="view"
-                                    />
-                                  </button>
-                                  <button className="border-0 bg-transparent">
-                                    <img
-                                      src="/images/add-cart.svg"
-                                      alt="addcart"
-                                    />
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="relative bg-white pt-2">
-                              <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-2">
-                                {item?.title}
-                              </h3>
-
-                              <div className="mt-1.5 flex items-center justify-between text-gray-900">
-                                <p className="text-xs">{item?.price} Da</p>
-
-                                <p className="text-xs uppercase tracking-wide">
-                                  {item?.brand}
-                                </p>
-                              </div>
-                              <ReactStars
-                                count={5}
-                                size={16}
-                                value={
-                                  item?.rating !== undefined
-                                    ? item.rating.toString()
-                                    : ""
-                                }
-                                edit={false}
-                                activeColor="#ffd700"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                }
-              })}
-          </div>
-        </div>
-      </section>
 
       <section className="blog-wrapper py-5 home-wrapper-2">
         <div className="max-w-7xl mx-auto ">
           <div className="flex flex-wrap gap-14 justify-center">
             <div className="w-full mx-auto text-center flex flex-col justify-center">
-              <h3 className="text-2xl font-bold">Our Latest Blogs</h3>
+              <h3 className="text-4xl font-bold">OUR LATEST BLOGS</h3>
+              <p>A WORLD OF INSPIRATION</p>
+              <p>READ URBAN MEN BLOGS</p>
+              <div className="flex justify-center pt-3">
+                <TbArrowBigDownLinesFilled />
+              </div>
             </div>
             {blogState &&
               blogState?.map((item, index) => {
@@ -511,6 +407,100 @@ const Homepage = () => {
                       />
                     </div>
                   );
+                }
+              })}
+          </div>
+        </div>
+      </section>
+
+      <section className="Featured-wrapper py-5 home-wrapper-2 pb-20">
+        <div className="  max-w-7xl mx-auto">
+          <div className=" flex flex-wrap gap-6 justify-center">
+            <div className=" w-full  mx-auto text-center flex flex-col justify-center  ">
+              <h3 className=" text-4xl font-bold">FEATURED COLLECTION</h3>
+            </div>
+
+            {productState &&
+              productState?.map((item, index) => {
+                if (item.tags === "featured") {
+                  if (index < 10) {
+                    return (
+                      <div key={index} className={"w-1/7 "}>
+                        <div>
+                          <div className="w-48 carde-product">
+                            <div className="group block overflow-hidden">
+                              <div className=" relative h-40  sm:h-64  sm:w-48  bg-gray-100">
+                                {item?.images && item.images[0] && (
+                                  <img
+                                    src={item.images[0].url}
+                                    alt=""
+                                    className="absolute inset-0 w-full h-full object-contain opacity-100 group-hover:opacity-0"
+                                  />
+                                )}
+                                {item?.images && item.images[1] && (
+                                  <img
+                                    src={item.images[1].url}
+                                    alt=""
+                                    className="absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100"
+                                  />
+                                )}
+                                <div className="action-bar absolute">
+                                  <div className="flex flex-col gap-4">
+                                    <button
+                                      className="border-0 bg-transparent"
+                                      onClick={() => {
+                                        addToWish(item?._id);
+                                      }}
+                                    >
+                                      <img
+                                        src="/images/wish.svg"
+                                        alt="wishlist"
+                                      />
+                                    </button>
+
+                                    <button className="border-0 bg-transparent">
+                                      <img
+                                        onClick={() =>
+                                          navigate("/product/" + item?._id)
+                                        }
+                                        src="/images/view.svg"
+                                        alt="view"
+                                      />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="relative h-[90px] bg-white pt-2 pl-1 pr-1 flex flex-col justify-between">
+                                <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-2">
+                                  {item?.title}
+                                </h3>
+
+                                <div className="mt-1.5 flex items-center justify-between text-gray-900">
+                                  <h4 className="text-xs">{item?.price} Da</h4>
+
+                                  <h4 className="text-xs uppercase tracking-wide">
+                                    {item?.brand}
+                                  </h4>
+                                </div>
+                                <ReactStars
+                                  count={5}
+                                  size={16}
+                                  value={
+                                    item?.rating !== undefined
+                                      ? item.rating.toString()
+                                      : ""
+                                  }
+                                  edit={false}
+                                  activeColor="#ffd700"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
                 }
               })}
           </div>

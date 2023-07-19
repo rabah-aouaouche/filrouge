@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { Stepper } from "react-form-stepper";
+// import { Stepper } from "react-form-stepper";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
@@ -76,9 +76,10 @@ const Addblog = () => {
       url: i.url,
     });
   });
+
   useEffect(() => {
     formik.values.images = img;
-  }, [blogImages]);
+  }, [img]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -106,18 +107,15 @@ const Addblog = () => {
 
   return (
     <div>
-      <h3 className=" mb-4">
-        {" "}
-        {getBlogId !== undefined ? "Edit" : "Add"} Blog
-      </h3>
-      <Stepper
+      <h3 className=" mb-4">{getBlogId !== undefined ? "Edit" : "Add"} Blog</h3>
+      {/* <Stepper
         steps={[
           { label: "Add Blog Details" },
           { label: "Upload Images" },
           { label: "Finish" },
         ]}
         activeStep={0}
-      />
+      /> */}
       <div className="">
         <form onSubmit={formik.handleSubmit}>
           <div className="form-control w-full max-w-xs mb-5">

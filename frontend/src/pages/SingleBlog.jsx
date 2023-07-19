@@ -28,6 +28,12 @@ const SingleBlog = () => {
           <Link to="/blogs" className=" mb-5 flex items-center gap-2">
             <BsArrowBarLeft /> Go back to Blogs
           </Link>
+          <div className="flex justify-center">
+            <h1 className="mb-6 text-3xl font-bold text-black">
+              {blogState?.title}
+            </h1>
+          </div>
+
           {blogState?.images && blogState.images[0] && (
             <img
               src={
@@ -41,19 +47,10 @@ const SingleBlog = () => {
           )}
 
           <div className="mb-6 flex items-center">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (23).jpg"
-              className="mr-2 h-8 rounded-full"
-              alt="avatar"
-              loading="lazy"
-            />
             <div>
               <span>
-                Published <u>15.07.2020</u> by
+                Published <u>{blogState?.createdAt.substring(0, 10)}</u>
               </span>
-              <a href="#!" className="font-medium">
-                Anna Maria Doe
-              </a>
             </div>
           </div>
 

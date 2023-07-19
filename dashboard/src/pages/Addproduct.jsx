@@ -56,7 +56,7 @@ const Addproduct = () => {
       toast.success("Product Added Successfullly!");
     }
     if (isError) {
-      Toast.error("Something Went Wrong!");
+      toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
 

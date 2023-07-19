@@ -6,11 +6,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import { config } from "../utils/axiosConfig";
-import {
-  createAnOrder,
-  deleteUserCart,
-  resetState,
-} from "../features/user/userSlice";
+import { createAnOrder } from "../features/user/userSlice";
 
 let shippingSchema = yup.object().shape({
   firstName: yup.string().required("First Name is Required"),
@@ -26,29 +22,46 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const cartState = useSelector((state) => state?.auth?.cartProducts);
   const authState = useSelector((state) => state?.auth);
-
   const [totalAmount, setTotalAmount] = useState(null);
   const [shippingInfo, setShippingInfo] = useState(null);
-  const [paymentInfo, setPaymentInfo] = useState({
-    razorpayPaymentId: "",
-    razorpayOrderId: "",
-  });
+  // const [paymentInfo, setPaymentInfo] = useState({
+  //   razorpayPaymentId: "",
+  //   razorpayOrderId: "",
+  // });
   const [cartProductState, setCartProductState] = useState([]);
-
+  console.log(cartProductState);
   const navigate = useNavigate();
 
+  // console.log(paymentInfo, shippingInfo, cartProductState, totalAmount);
   useEffect(() => {
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
-      sum = sum + Number(cartState[index]?.quantity) * cartState[index]?.price;
+      sum = sum + Number(cartState[index].quantity) * cartState[index].price;
       setTotalAmount(sum);
     }
   }, [cartState]);
 
+  const getTokenFromLocalStorage = localStorage.getItem("customer")
+    ? JSON.parse(localStorage.getItem("customer"))
+    : null;
+
+  const config2 = {
+    headers: {
+      Authorization: `Bearer ${
+        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+      }`,
+      Accept: "application/json",
+    },
+  };
+
+  useEffect(() => {
+    dispatch(getUserCart(config2));
+  }, []);
+
   useEffect(() => {
     if (
-      authState?.orderedProduct?.order !== null &&
-      authState?.orderedProduct?.success == true
+      authState?.orderedProduct !== null &&
+      authState?.orderedProduct?.status == true
     ) {
       navigate("/my-orders");
     }
@@ -66,9 +79,8 @@ const Checkout = () => {
       other: "",
     },
     validationSchema: shippingSchema,
-    onSubmit: (values) => {
-      setShippingInfo(values);
-      localStorage.setItem("address", JSON.stringify(values));
+    onSubmit: async (values) => {
+      await setShippingInfo(values);
       setTimeout(() => {
         checkOutHandler();
       }, 300);
@@ -100,8 +112,7 @@ const Checkout = () => {
       });
       setCartProductState(items);
     }
-  }, [cartState]);
-
+  }, []);
   const checkOutHandler = async () => {
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
@@ -143,10 +154,10 @@ const Checkout = () => {
           config
         );
 
-        setPaymentInfo({
-          razorpayPaymentId: result.razorpay_payment_id,
-          razorpayOrderId: result.razorpay_order_id,
-        });
+        // setPaymentInfo({
+        //   razorpayPaymentId: response.razorpay_payment_id,
+        //   razorpayOrderId: response.razorpay_order_id,
+        // });
 
         dispatch(
           createAnOrder({
@@ -154,13 +165,9 @@ const Checkout = () => {
             totalPriceAfterDiscount: totalAmount,
             orderItems: cartProductState,
             paymentInfo: result.data,
-            shippingInfo: JSON.parse(localStorage.getItem("address")),
+            shippingInfo,
           })
         );
-
-        dispatch(deleteUserCart());
-        localStorage.removeItem("address");
-        dispatch(resetState());
       },
       prefill: {
         name: "Rabah Aouaouche",

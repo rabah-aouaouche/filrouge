@@ -20,7 +20,7 @@ const ProductCard = (props) => {
   };
 
   return (
-    <div className="flex flex-wrap gap-2 ">
+    <div className="flex flex-wrap gap-24 ">
       {data &&
         data?.map((item, index) => {
           return (
@@ -49,9 +49,9 @@ const ProductCard = (props) => {
                         className="absolute inset-0 w-full h-full object-contain opacity-100 group-hover:opacity-0"
                       />
                     )}
-                    {item?.images && item.images[0] && (
+                    {item?.images && item.images[1] && (
                       <img
-                        src={item.images[0].url}
+                        src={item.images[1].url}
                         alt=""
                         className="absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100"
                       />
@@ -66,33 +66,28 @@ const ProductCard = (props) => {
                         >
                           <img src="/images/wish.svg" alt="wishlist" />
                         </button>
-                        <button className="border-0 bg-transparent">
-                          <img src="/images/prodcompare.svg" alt="compare" />
-                        </button>
+
                         <Link
                           to={"/product/" + item?._id}
                           className="border-0 bg-transparent"
                         >
                           <img src="/images/view.svg" alt="view" />
                         </Link>
-                        <button className="border-0 bg-transparent">
-                          <img src="/images/add-cart.svg" alt="addcart" />
-                        </button>
                       </div>
                     </div>
                   </div>
 
-                  <div className="relative bg-white pt-2">
+                  <div className="relative h-[90px] bg-white pt-2 pl-1 pr-1 flex flex-col justify-between">
                     <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-2">
                       {item?.title}
                     </h3>
 
                     <div className="mt-1.5 flex items-center justify-between text-gray-900">
-                      <p className="text-xs">{item?.price} Da</p>
+                      <h4 className="text-xs">{item?.price} Da</h4>
 
-                      <p className="text-xs uppercase tracking-wide">
+                      <h4 className="text-xs uppercase tracking-wide">
                         {item?.brand}
-                      </p>
+                      </h4>
                     </div>
                     <ReactStars
                       count={5}

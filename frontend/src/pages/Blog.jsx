@@ -17,6 +17,15 @@ const Blog = () => {
   const getblogs = () => {
     dispatch(getAllBlogs());
   };
+
+  function scrollToLatestBlogs() {
+    const latestBlogsSection = document.getElementById("latest-blogs");
+    if (latestBlogsSection) {
+      latestBlogsSection.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }
   return (
     <>
       <Meta title={"Blogs"} />
@@ -50,6 +59,7 @@ const Blog = () => {
               <button
                 type="button"
                 className="px-8 py-3 m-2 text-lg font-semibold rounded bg-gray-800 text-gray-50"
+                onClick={() => scrollToLatestBlogs()}
               >
                 Get started
               </button>
@@ -65,22 +75,10 @@ const Blog = () => {
 
       <div className="blog-wrapper home-wrapper py-5  ">
         <div className="max-w-full mx-auto ">
-          {/* <div className="flex flex-wrap   ">
-            <div className="w-full ">
-              <div className="filter-card mb-3">
-                <h3 className="filter-title"> Find By Categories</h3>
-                <div>
-                  <ul className=" ps-0 ">
-                    <li>T-shirt</li>
-                    <li>Jeans</li>
-                    <li>baskets</li>
-                    <li>sunglasses</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div> */}
-          <section className="blog-wrapper py-5 home-wrapper-2">
+          <section
+            id="latest-blogs"
+            className="blog-wrapper py-5 home-wrapper-2"
+          >
             <div className="max-w-7xl mx-auto ">
               <div className="flex flex-wrap gap-14 justify-center">
                 <div className="w-full mx-auto text-center flex flex-col justify-center">

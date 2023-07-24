@@ -180,11 +180,11 @@ const SingleProduct = () => {
               <div className="mt-4 flex gap-10">
                 <div className="prose max-w-none">
                   <h1>Tags:</h1>
-                  <p>{productState?.tags}</p>
+                  <p className=" uppercase">{productState?.tags}</p>
                 </div>
                 <div className="prose max-w-none">
                   <h1>Category:</h1>
-                  <p>{productState?.category}</p>
+                  <p className=" uppercase">{productState?.category}</p>
                 </div>
               </div>
 

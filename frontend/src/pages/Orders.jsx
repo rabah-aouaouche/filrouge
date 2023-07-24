@@ -20,13 +20,13 @@ const Orders = () => {
       <Meta title={"My Orders"} />
       <BreadCrumb title="My Orders" />
       <div className="container p-2 mx-auto sm:p-4 text-gray-100">
-        <h2 className="mb-4 text-2xl font-semibold leadi text-gray-500 ">
+        <h2 className="mb-4 text-5xl font-semibold  text-orange-600 ">
           My Orders
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full p-6 text-xs text-left whitespace-nowrap">
             <thead>
-              <tr className="bg-gray-700">
+              <tr className="bg-gray-700 uppercase">
                 <th className="p-3">#</th>
 
                 <th className="p-3">Order Id</th>
@@ -48,70 +48,43 @@ const Orders = () => {
                     className="  border-2 bg-gray-900 border-gray-200"
                   >
                     <tr className="">
-                      <td className="px-3  font-medium text-gray-400">
+                      <td className="px-3  font-medium text-white">
                         {index + 1}
                       </td>
-                      <td className="px-3  font-medium text-gray-400">
+                      <td className="px-3  font-medium text-white">
                         {item?._id}
                       </td>
                       <td className="px-3 py-2">
                         <p>{item?.totalPrice} Da</p>
                       </td>
-                      <td className="px-3 py-2">
-                        <span>{item?.totalPriceAfterDiscount} Da</span>
-                        <p className="text-gray-400">after discount</p>
+                      <td className="px-3 py-2 flex">
+                        <span className=" mr-1">
+                          {item?.totalPriceAfterDiscount}{" "}
+                        </span>
+                        <p className="text-white "> Da after discount</p>
                       </td>
                       <td className="px-3 py-2">
-                        <p>{item?.orderStaus}</p>
+                        <p className=" text-white uppercase">
+                          {item?.orderStaus}
+                        </p>
                       </td>
-                      {/* <td className="px-3 py-2">
-                  <p>dwight@adams.com</p>
-                </td>
-                <td className="px-3 py-2">
-                  <p>71 Cherry Court, SO</p>
-                  <p className="text-gray-400">United Kingdom</p>
-                </td>
-                <td className="px-3 py-2">
-                  <button
-                    type="button"
-                    title="Open details"
-                    className="p-1 rounded-full text-gray-600 hover:bg-gray-700 focus:bg-gray-700"
-                  >
-                    <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-                      <path d="M12 6a2 2 0 110-4 2 2 0 010 4zm0 8a2 2 0 110-4 2 2 0 010 4zm-2 6a2 2 0 104 0 2 2 0 00-4 0z"></path>
-                    </svg>
-                  </button>
-                </td> */}
                     </tr>
 
-                    <tr className="bg-gray-900">
+                    <tr className="bg-gray-900 uppercase font-semibold">
                       <th className="p-3"></th>
 
-                      <th className="p-3 font-normal  text-[#d97b3e]">
-                        Product Name :
-                      </th>
-                      <th className="p-3 font-normal  text-[#d97b3e]">
-                        quantity :
-                      </th>
-                      <th className="p-3 font-normal  text-[#d97b3e]">
-                        Price :
-                      </th>
-                      <th className="p-3 font-normal  text-[#d97b3e]">
-                        Color :
-                      </th>
-                      {/* <th className="p-3">Email</th>
-                <th className="p-3">Address</th>
-                <th className="p-3">
-                  <span className="sr-only">Edit</span>
-                </th> */}
+                      <th className="p-3  text-[#d97b3e]">Product Name :</th>
+                      <th className="p-3  text-[#d97b3e]">quantity :</th>
+                      <th className="p-3  text-[#d97b3e]">Price :</th>
+                      <th className="p-3  text-[#d97b3e]">Color :</th>
                     </tr>
 
                     {item?.orderItems?.map((i, index) => {
                       return (
-                        <tr className=" bg-gray-900">
-                          <td className="px-3  font-medium text-gray-400">-</td>
+                        <tr className=" bg-gray-900 text-white">
+                          <td className="px-3  font-medium text-white">-</td>
 
-                          <td className="px-3  font-medium text-gray-400">
+                          <td className="px-3  font-medium text-white">
                             <p>{i?.product?.title}</p>
                           </td>
                           <td className="px-3 py-2">

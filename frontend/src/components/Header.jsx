@@ -190,10 +190,6 @@ const Header = () => {
                   <Link to="/contact">Contact</Link>
                 </li>
 
-                <li className="border-b">
-                  <Link to="/compare-product">Compare product</Link>
-                </li>
-
                 {/* social media for the humburger */}
 
                 <div className=" text-black mb-0 flex flex-row gap-3 justify-center md:hidden lg:hidden  ">
@@ -355,7 +351,7 @@ const Header = () => {
                     <span className="font-bold text-lg">
                       {cartState?.length ? cartState?.length : 0} Items
                     </span>
-                    <span className="text-info">
+                    <span className=" text-violet-600">
                       Subtotal: {total ? total : 0} Da
                     </span>
                     <div className="card-actions">

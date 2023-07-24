@@ -17,6 +17,7 @@ const columns = [
   {
     title: "Name",
     dataIndex: "name",
+    sorter: (a, b) => a.name.length - b.name.length,
   },
   {
     title: "Product Count",
@@ -103,63 +104,12 @@ const Dashboard = () => {
     setOrderData(data1);
   }, [monthlyDataState, yearlyDataState, orderState]);
 
-  // Charts of Income
-  // const data = [
-  //   {
-  //     type: "Jan",
-  //     sales: 38,
-  //   },
-  //   {
-  //     type: "Feb",
-  //     sales: 52,
-  //   },
-  //   {
-  //     type: "Mar",
-  //     sales: 61,
-  //   },
-  //   {
-  //     type: "Apr",
-  //     sales: 145,
-  //   },
-  //   {
-  //     type: "May",
-  //     sales: 48,
-  //   },
-  //   {
-  //     type: "Jun",
-  //     sales: 38,
-  //   },
-  //   {
-  //     type: "July",
-  //     sales: 38,
-  //   },
-  //   {
-  //     type: "Aug",
-  //     sales: 38,
-  //   },
-  //   {
-  //     type: "Sept",
-  //     sales: 38,
-  //   },
-  //   {
-  //     type: "Oct",
-  //     sales: 38,
-  //   },
-  //   {
-  //     type: "Nov",
-  //     sales: 38,
-  //   },
-  //   {
-  //     type: "Dec",
-  //     sales: 38,
-  //   },
-  // ];
   const config = {
     data: dataMonthly,
     xField: "type",
     yField: "income",
     color: ({ type }) => {
-      return "#ffd333";
+      return "#f97316";
     },
     label: {
       position: "middle",
@@ -192,7 +142,7 @@ const Dashboard = () => {
     xField: "type",
     yField: "sales",
     color: ({ type }) => {
-      return "#ffd333";
+      return "#ff700d";
     },
     label: {
       position: "middle",
@@ -221,48 +171,55 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h3 className=" text-2xl font-bold text-black">dashboard</h3>
+      <h3 className=" text-3xl font-bold text-black uppercase">dashboard</h3>
       <div className="flex justify-between items-center gap-3">
         <div className=" flex justify-between items-end flex-grow bg-slate-200 p-3 rounded-md">
           <div>
-            <p className=" mb-0">Total Income :</p>
+            <p className=" mb-0 text-black">Total Income :</p>
             <h3 className=" text-center flex flex-row justify-between">
-              <span className="text-black font-semibold pr-5">
+              <span className=" text-orange-600 font-semibold pr-5">
                 {yearlyDataState && yearlyDataState[0]?.amount}
                 DA
               </span>
 
-              <span>Income in Last Year From Today</span>
+              <span className="text-black">Income in Last Year From Today</span>
             </h3>
           </div>
         </div>
         <div className=" flex justify-between items-end flex-grow bg-slate-200 p-3 rounded-md">
           <div>
-            <p className=" mb-0">Total Sales :</p>
+            <p className=" mb-0 text-black">Total Sales :</p>
             <h3 className=" text-center flex flex-row justify-between">
-              <span className="text-black font-semibold pr-5">
+              <span className="text-orange-600 font-semibold pr-5">
                 {yearlyDataState && yearlyDataState[0]?.count}
               </span>
 
-              <span> Sales in Last Year From Today</span>
+              <span className="text-black"> Sales in Last Year From Today</span>
             </h3>
           </div>
         </div>
       </div>
       <div className="mt-4">
-        <h3 className="mb-4 text-2xl font-bold text-black"> Income Statics</h3>
+        <h3 className="mb-4 text-2xl font-bold text-black uppercase">
+          {" "}
+          Income Statics
+        </h3>
         <div>
           <Column {...config} />
         </div>
       </div>
       <div className="mt-4">
-        <h3 className="mb-4 text-2xl font-bold text-black"> Sales Statics</h3>
+        <h3 className="mb-4 text-2xl font-bold text-black uppercase">
+          Sales Statics
+        </h3>
         <div>
           <Column {...config2} />
         </div>
       </div>
       <div className="mt-4">
-        <h3 className="mb-4 text-2xl font-bold text-black"> Recent Orders</h3>
+        <h3 className="mb-4 text-2xl font-bold text-black uppercase">
+          Recent Orders
+        </h3>
         <div>
           <Table columns={columns} dataSource={orderData} />
         </div>

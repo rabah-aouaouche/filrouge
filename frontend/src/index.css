@@ -475,7 +475,7 @@ a {
 .sub-title {
   font-size: 14px;
   font-weight: 600;
-  color: #1c1c1b;
+
   margin-bottom: 15px;
   margin-top: 20px;
 }
@@ -496,7 +496,7 @@ a {
 
 .filter-sort-grid {
   padding: 8px;
-  background-color: white;
+  background-color: black;
   border-radius: 15px;
 }
 

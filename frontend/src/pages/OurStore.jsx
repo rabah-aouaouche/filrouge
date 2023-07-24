@@ -65,14 +65,18 @@ const OurStore = () => {
         <div className="max-w-full mx-auto ">
           <div className="flex flex-wrap   ">
             <div className="w-full md:w-1/4">
-              <div className="filter-card mb-3 m-2">
+              <div className="filter-card mb-3 m-2 border-orange-600 border">
                 <h3 className="filter-title"> Shop By Categories</h3>
                 <div className="">
-                  <ul className=" ps-0 ">
+                  <ul className=" ps-0  ">
                     {categories &&
                       [...new Set(categories)].map((item, index) => {
                         return (
-                          <li key={index} onClick={() => setCategory(item)}>
+                          <li
+                            key={index}
+                            onClick={() => setCategory(item)}
+                            className=" text-white uppercase"
+                          >
                             {item}
                           </li>
                         );
@@ -80,41 +84,14 @@ const OurStore = () => {
                   </ul>
                 </div>
               </div>
-              <div className="filter-card mb-3 m-2">
+              <div className="filter-card mb-3 m-2 border-orange-600 border">
                 <h3 className="filter-title"> Filter By</h3>
                 <div>
-                  {/* <h5 className="sub-title"> Availablity</h5>
-                  <div>
-                    <div>
-                      <div className="form-check flex items-center gap-1">
-                        <input
-                          className="form-check-input "
-                          type="checkbox"
-                          value=""
-                          id=""
-                        />
-                        <label className="form-check-label" htmlFor="">
-                          In Stock (1)
-                        </label>
-                      </div>
-                      <div className="form-check flex items-center gap-1">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id=""
-                        />
-                        <label className="form-check-label" htmlFor="">
-                          Out of Stock(0)
-                        </label>
-                      </div>
-                    </div>
-                  </div> */}
-                  <h5 className="sub-title"> Price</h5>
+                  <h5 className="sub-title text-white"> Price :</h5>
                   <div className="flex items-center gap-2">
                     <div className="form-control w-full max-w-xs h-16">
                       <label className="label">
-                        <span className="label-text">From:</span>
+                        <span className="label-text text-white">From:</span>
                       </label>
                       <input
                         type="number"
@@ -125,7 +102,7 @@ const OurStore = () => {
                     </div>
                     <div className="form-control w-full max-w-xs h-16">
                       <label className="label">
-                        <span className="label-text">To:</span>
+                        <span className="label-text text-white">To:</span>
                       </label>
                       <input
                         type="number"
@@ -135,27 +112,8 @@ const OurStore = () => {
                       />
                     </div>
                   </div>
-                  {/* <h5 className="sub-title"> Colors</h5>
-                  <div className="flex flex-wrap ">
-                    <ul className="colors ps-0">
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                    </ul>
-                  </div> */}
-                  <h5 className="sub-title"> Size</h5>
+
+                  <h5 className="sub-title text-white"> Size :</h5>
                   <div>
                     <div className="form-check flex items-center gap-1">
                       <input
@@ -226,7 +184,7 @@ const OurStore = () => {
                   </div>
                 </div>
               </div>
-              <div className="filter-card mb-3 m-2">
+              <div className="filter-card mb-3 m-2 border-orange-600 border">
                 <h3 className="filter-title"> Product Tags</h3>
                 <div>
                   <div className="product-tags flex flex-wrap items-center gap-2">
@@ -245,7 +203,7 @@ const OurStore = () => {
                   </div>
                 </div>
               </div>
-              <div className="filter-card mb-3 m-2">
+              <div className="filter-card mb-3 m-2 border-orange-600 border">
                 <h3 className="filter-title"> Product Brands</h3>
                 <div>
                   <div className="product-tags flex flex-wrap items-center gap-2">
@@ -266,10 +224,10 @@ const OurStore = () => {
               </div>
             </div>
             <div className="w-full md:w-3/4">
-              <div className="filter-sort-grid ml-2 mr-2">
+              <div className="filter-sort-grid ml-2 mr-2 bg-black border-orange-600 border">
                 <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <p className=" mb-0">Sort By:</p>
+                  <div className="flex items-center gap-2 ">
+                    <p className=" mb-0 text-white">Sort By:</p>
                     <select
                       name=""
                       className="form-control form-select"
@@ -285,7 +243,12 @@ const OurStore = () => {
                     </select>
                   </div>
                   <div className=" flex items-center gap-2">
-                    <p className="totalproducts"> 21 Products</p>
+                    <p className="totalproducts text-white">
+                      <span className=" font-bold text-white ">
+                        {productState?.length ? productState?.length : 0}
+                      </span>
+                      products
+                    </p>
                     <div className="flex gap-2 items-center gridd">
                       <img
                         onClick={() => setGrid(3)}
@@ -325,6 +288,93 @@ const OurStore = () => {
                     grid={grid}
                   />
                 </div>
+                <nav
+                  aria-label="Pagination"
+                  className="inline-flex -space-x-px rounded-md shadow-sm dark:bg-gray-800 dark:text-gray-100 mt-10 items-center justify-center text-center"
+                >
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-2 py-2 text-sm font-semibold border rounded-l-md dark:border-gray-700"
+                  >
+                    <span className="sr-only">Previous</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    aria-current="page"
+                    className="inline-flex items-center px-4 py-2 text-sm font-semibold border dark:bg-violet-400 dark:text-gray-900 dark:border-gray-700"
+                  >
+                    1
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-4 py-2 text-sm font-semibold border dark:border-gray-700"
+                  >
+                    2
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-4 py-2 text-sm font-semibold border dark:border-gray-700"
+                  >
+                    3
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-4 py-2 text-sm font-semibold border dark:border-gray-700"
+                  >
+                    ...
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-4 py-2 text-sm font-semibold border dark:border-gray-700"
+                  >
+                    7
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-4 py-2 text-sm font-semibold border dark:border-gray-700"
+                  >
+                    8
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-4 py-2 text-sm font-semibold border dark:border-gray-700"
+                  >
+                    9
+                  </button>
+
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-2 py-2 text-sm font-semibold border rounded-r-md dark:border-gray-700"
+                  >
+                    <span className="sr-only">Next</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                </nav>
               </div>
             </div>
           </div>

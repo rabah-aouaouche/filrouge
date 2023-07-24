@@ -75,51 +75,16 @@ const Homepage = () => {
           </Link>
         </div>
         <div className="w-full h-screen mx-auto text-center lg:flex flex-col justify-center items-center hidden   ">
-          {/* <div className="carousel carousel-center w-[300px] h-[450px] max-w-md p-4 space-x-4 bg-neutral rounded-box"></div> */}
-          <div className="carousel carousel-center rounded-box md:w-[300px] md:h-[450px]   p-4 space-x-4 bg-neutral  ">
+          <div className="carousel carousel-center rounded-box md:w-[400px] md:h-[650px]    ">
             <div id="slide1" className="carousel-item relative w-full">
-              <img src={caroussel1} className="w-full" />
-              <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                <a href="#slide4" className="btn btn-circle">
-                  ❮
-                </a>
-                <a href="#slide2" className="btn btn-circle">
-                  ❯
-                </a>
-              </div>
-            </div>
-            <div id="slide2" className="carousel-item relative w-full">
-              <img src={caroussel1} className="w-full" />
-              <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                <a href="#slide1" className="btn btn-circle">
-                  ❮
-                </a>
-                <a href="#slide3" className="btn btn-circle">
-                  ❯
-                </a>
-              </div>
-            </div>
-            <div id="slide3" className="carousel-item relative w-full">
-              <img src={caroussel1} className="w-full" />
-              <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                <a href="#slide2" className="btn btn-circle">
-                  ❮
-                </a>
-                <a href="#slide4" className="btn btn-circle">
-                  ❯
-                </a>
-              </div>
-            </div>
-            <div id="slide4" className="carousel-item relative w-full">
-              <img src={caroussel1} className="w-full" />
-              <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                <a href="#slide3" className="btn btn-circle">
-                  ❮
-                </a>
-                <a href="#slide1" className="btn btn-circle">
-                  ❯
-                </a>
-              </div>
+              <video className="" autoPlay muted loop>
+                <source
+                  src="https://static.bershka.net/4/photos2/2023/I/0/2/p/7979/696/611/7979696611_4_3_1.mp4?t=1689779404189"
+                  type="video/mp4"
+                />
+                Votre navigateur ne prend pas en charge la lecture de vidéos au
+                format MP4.
+              </video>
             </div>
           </div>
         </div>
@@ -214,9 +179,12 @@ const Homepage = () => {
                     RECTANGULAR SUNGLASSES
                   </h3>
 
-                  <span className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+                  <Link
+                    to="/product/64be68ad0c68ed4102d63127"
+                    className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white"
+                  >
                     Shop Now
-                  </span>
+                  </Link>
                 </div>
               </a>
             </li>
@@ -234,7 +202,10 @@ const Homepage = () => {
                     MULTIPIECE SNEAKERS
                   </h3>
 
-                  <Link className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+                  <Link
+                    to="/product/64be77e90c68ed4102d66ece"
+                    className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white"
+                  >
                     Shop Now
                   </Link>
                 </div>
@@ -310,7 +281,7 @@ const Homepage = () => {
                       <div className="famous-content absolute flex flex-col justify-between">
                         <div>
                           <h5 className="text-black">{item?.brand}</h5>
-                          <h6 className="text-black">{item?.title}</h6>
+                          {/* <h6 className="text-black">{item?.title}</h6> */}
                         </div>
                         <div>
                           <button className="border-0 bg-transparent">
@@ -390,7 +361,7 @@ const Homepage = () => {
             </div>
             {blogState &&
               blogState?.map((item, index) => {
-                if (index < 3) {
+                if (index < 6) {
                   return (
                     <div
                       key={index}
@@ -423,7 +394,7 @@ const Homepage = () => {
             {productState &&
               productState?.map((item, index) => {
                 if (item.tags === "featured") {
-                  if (index < 10) {
+                  if (index < 15) {
                     return (
                       <div key={index} className={"w-1/7 "}>
                         <div>

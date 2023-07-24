@@ -31,7 +31,7 @@ const MainLayout = () => {
     <Layout /* onContextMenu={(e) => e.preventDefault()} this disable right click so noone can see the codesource */
     >
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo flex justify-center items-center">
+        <div className="logo flex justify-center items-center bg-[#ff9922]">
           <img src="/images/logourban.png" alt="logo" className="w-1/2 " />
         </div>
         <Menu
@@ -200,7 +200,7 @@ const MainLayout = () => {
                 <h5 className="mb-0 font-bold">Rabah</h5>
                 <p className="mb-0">rabehaou@gmail.com</p>
               </div>
-              <div className="dropdown dropdown-end">
+              {/* <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-xs glass ">
                   Click
                 </label>
@@ -227,27 +227,6 @@ const MainLayout = () => {
                     </Link>
                   </li>
                 </ul>
-              </div>
-
-              {/* <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li>
-                  <Link
-                    className="dropdown-item py-1 mb-1"
-                    style={{ height: "auto", lineHeight: "20px" }}
-                    to="/"
-                  >
-                    View Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item py-1 mb-1"
-                    style={{ height: "auto", lineHeight: "20px" }}
-                    to="/"
-                  >
-                    Signout
-                  </Link>
-                </li>
               </div> */}
             </div>
           </div>

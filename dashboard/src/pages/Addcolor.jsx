@@ -80,7 +80,7 @@ const Addcolor = () => {
           </label>
           <input
             id="color"
-            type="color"
+            type="text"
             placeholder="Enter Color"
             className="input input-bordered input-warning w-full max-w-xs bg-white"
             onChange={formik.handleChange("title")}

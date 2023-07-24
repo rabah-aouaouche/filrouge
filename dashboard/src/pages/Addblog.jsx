@@ -108,14 +108,7 @@ const Addblog = () => {
   return (
     <div>
       <h3 className=" mb-4">{getBlogId !== undefined ? "Edit" : "Add"} Blog</h3>
-      {/* <Stepper
-        steps={[
-          { label: "Add Blog Details" },
-          { label: "Upload Images" },
-          { label: "Finish" },
-        ]}
-        activeStep={0}
-      /> */}
+
       <div className="">
         <form onSubmit={formik.handleSubmit}>
           <div className="form-control w-full max-w-xs mb-5">

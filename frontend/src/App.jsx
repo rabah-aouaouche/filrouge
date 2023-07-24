@@ -7,7 +7,6 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import OurStore from "./pages/OurStore";
 import Blog from "./pages/Blog";
-import CompareProduct from "./pages/CompareProduct";
 import Wishlist from "./pages/Wishlist";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -71,7 +70,6 @@ function App() {
                 </PrivateRoutes>
               }
             />
-            <Route path="compare-product" element={<CompareProduct />} />
             <Route
               path="wishlist"
               element={

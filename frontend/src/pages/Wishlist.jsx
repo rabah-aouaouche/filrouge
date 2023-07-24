@@ -5,6 +5,7 @@ import { GiCrossedBones } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProductWishlist } from "../features/user/userSlice";
 import { addToWishlist } from "../features/product/productSlice";
+import { Link } from "react-router-dom";
 
 const Wishlist = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,6 @@ const Wishlist = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {wishlistState && wishlistState.length === 0 && (
               <>
-                {" "}
                 <div className="text-center text-lg font-bold mt-36 mb-40">
                   <p>- No Data -</p>
                   <p>- No Data -</p>
@@ -54,12 +54,20 @@ const Wishlist = () => {
                 return (
                   <div className="col-span-1" key={index}>
                     <div className="wishlist-card relative flex flex-col justify-between">
-                      <GiCrossedBones
-                        onClick={() => {
-                          removeFromWishlist(item?._id);
-                        }}
-                        className="absolute top-3 right-3 w-6 h-6 cursor-pointer"
-                      />
+                      <div className="absolute top-3 right-3 w-6 h-6 cursor-pointer">
+                        <GiCrossedBones
+                          onClick={() => {
+                            removeFromWishlist(item?._id);
+                          }}
+                          className=" w-6 h-6 cursor-pointer"
+                        />
+                        <Link
+                          to={"/product/" + item?._id}
+                          className="mt-3 ml-1 border-0 bg-transparent w-6 h-6 cursor-pointer"
+                        >
+                          <img src="/images/view.svg" alt="view" />
+                        </Link>
+                      </div>
 
                       <div className="wishlist-card-image">
                         {item?.images && item.images[0] && (
